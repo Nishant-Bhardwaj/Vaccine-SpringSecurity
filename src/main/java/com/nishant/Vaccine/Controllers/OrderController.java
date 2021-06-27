@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:4200/")
 @Controller
 public class OrderController {
 
     @Autowired
     OrderService orderService;
 
-    @CrossOrigin("http://localhost:4200/")
     @ResponseBody
     @RequestMapping(value = "/order/{count}/{add}/")
     public String placeOrder(@PathVariable("count") int count, @PathVariable("add") String address){
