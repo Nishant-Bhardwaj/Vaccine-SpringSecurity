@@ -25,18 +25,20 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.csrf().disable();
 
-        http
-                .antMatcher("//localhost:9999//*")
-                .formLogin().disable();
+        //csrf is ENABLED(by commenting below line of code) to be safe from forgery attack
+        //http.csrf().disable();
+
+        /* To disable form login
+        http.antMatcher("//localhost:9999//*").formLogin().disable();
+        */
 
         http
                 .authorizeRequests()
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin();
+                .httpBasic();
 
     }
 
