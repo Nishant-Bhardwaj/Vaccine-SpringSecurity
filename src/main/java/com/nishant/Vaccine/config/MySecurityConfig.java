@@ -3,6 +3,7 @@ package com.nishant.Vaccine.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -17,6 +18,10 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Auto wiring PasswordEncoder Bean defined as Bean in MyBCrypt.java
+     * @param passwordEncoder
+     */
     @Autowired
     public MySecurityConfig(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
@@ -25,13 +30,6 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        //csrf is ENABLED(by commenting below line of code) to be safe from forgery attack
-        //http.csrf().disable();
-
-        /* To disable form login
-        http.antMatcher("//localhost:9999//*").formLogin().disable();
-        */
 
         http
                 .authorizeRequests()
